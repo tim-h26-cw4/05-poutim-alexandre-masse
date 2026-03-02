@@ -13,24 +13,23 @@ export default class Poutine {
     }
   }
   selectType(event) {
+    const clicked = event.currentTarget;
+
+    const isAlreadyActive = clicked.classList.contains('is-active');
+
     for (let i = 0; i < this.types.length; i++) {
-      const type = this.types[i];
-      type.classList.remove('is-active');
+      this.types[i].classList.remove('is-active');
     }
-    if (this.isActive == false) {
-      event.target.classList.toggle('is-active');
-      this.selectedType = event.target.textContent;
-      console.log(this.selectedType);
-      this.updatePhoto();
-    } else if (this.isActive == true) {
-      for (let i = 0; i < this.types.length; i++) {
-        const type = this.types[i];
-        type.classList.remove('is-active');
-      }
+
+    if (isAlreadyActive) {
       const imageUpdate = this.element.querySelector('.poutine__image');
       imageUpdate.classList.remove('is-active');
-      imageUpdate.src = `assets/images/poutine.png`;
-      this.isActive = false;
+      imageUpdate.src = 'assets/images/poutine.png';
+      this.selectedType = '';
+    } else {
+      clicked.classList.add('is-active');
+      this.selectedType = clicked.textContent;
+      this.updatePhoto();
     }
   }
 
